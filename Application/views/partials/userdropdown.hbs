@@ -1,0 +1,15 @@
+<div class="dropdown-menu-nobs">
+    <div class="dropdown-display-text">
+        Hi, {{user.username}}
+    </div>
+    <div class="dropdown-menu-items">
+        <a class="dropdown-item" href="/users/{{user.id}}">  {{! userId}}
+        <i class="fas fa-user"></i> Profile
+        </a>
+        <form action="/users/logout" method="POST" enctype="application/x-www-form-urlencoded">
+            <button class="dropdown-item" type="submit">
+                <i class="fas fa-sign-out-alt"></i> Log Out
+            </button>
+        </form>
+    </div>
+</div>

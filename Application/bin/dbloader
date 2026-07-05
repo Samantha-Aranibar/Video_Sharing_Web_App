@@ -1,0 +1,160 @@
+"use strict";
+require('dotenv').config(); // Load environment variables from .env file
+const mysql = require("mysql2/promise");
+
+function displayWarningMessage(warning) {
+  switch (warning.Code) {
+    case 1007:
+      console.log(`Skipping Database Creation --> ${warning.Message}`);
+      break;
+    case 1050:
+      console.log(`Skipping Table Creation --> ${warning.Message}`);
+      break;
+  }
+}
+
+async function getConnection() {
+  return await mysql.createConnection({
+    host: process.env.DB_HOST,
+    //TODO make sure to change to the user you want to use
+    user: process.env.DB_USER, //Your DB username
+    //TODO make sure to change to the correct password for your user.
+    password: process.env.DB_PASSWORD, //Your DB password
+  });
+}
+
+async function makeDatabase(connection) {
+  //TODO make sure to change yourdbnamehere
+  const [result, _] = await connection.query(
+    `CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME};`
+  );
+  if (result && result.warningStatus > 0) {
+    const [warningResult, _] = await connection.query("SHOW WARNINGS");
+    displayWarningMessage(warningResult[0]);
+  } else {
+    console.log("Created Database!");
+  }
+}
+
+async function makeUsersTable(connection) {
+  const [result, _] = await connection.query(
+    // Users Table SQL Goes here
+    `CREATE TABLE IF NOT EXISTS user (
+    user_id int unsigned NOT NULL AUTO_INCREMENT,
+    username varchar(64) NOT NULL,
+    email varchar(128) NOT NULL,
+    password varchar(128) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id),
+    UNIQUE KEY user_id_UNIQUE (user_id),
+    UNIQUE KEY username_UNIQUE (username),
+    UNIQUE KEY email_UNIQUE (email)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;`
+  );
+
+  if (result && result.warningStatus > 0) {
+    const [warningResult, _] = await connection.query("SHOW WARNINGS");
+    displayWarningMessage(warningResult[0]);
+  } else {
+    console.log("Created Users Table!");
+  }
+}
+
+async function makePostsTable(connection) {
+  const [result, _] = await connection.query(
+    // Posts Table SQL Goes here
+    `CREATE TABLE IF NOT EXISTS post (
+    post_id int unsigned NOT NULL AUTO_INCREMENT,
+    title text NOT NULL,
+    description text NOT NULL,
+    video text NOT NULL,
+    thumbnail text NOT NULL,
+    fk_user_id int unsigned NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (post_id),
+    UNIQUE KEY post_id_UNIQUE (post_id),
+    KEY post_author_idx (fk_user_id),
+    CONSTRAINT post_author FOREIGN KEY (fk_user_id) REFERENCES user (user_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;`
+  );
+  if (result && result.warningStatus > 0) {
+    const [warningResult, _] = await connection.query("SHOW WARNINGS");
+    displayWarningMessage(warningResult[0]);
+  } else {
+    console.log("Created Posts Table!");
+  }
+}
+
+async function makeCommentsTable(connection) {
+  const [result, _] = await connection.query(
+    // Comments Table SQL Goes here
+    `CREATE TABLE IF NOT EXISTS comment (
+    comment_id int unsigned NOT NULL AUTO_INCREMENT,
+    comment text NOT NULL,
+    fk_user_id int unsigned NOT NULL,
+    fk_post_id int unsigned NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (comment_id),
+    UNIQUE KEY commen_id_UNIQUE (comment_id),
+    KEY comment_author_idx (fk_user_id),
+    KEY comment_post_id_idx (fk_post_id),
+    CONSTRAINT comment_author FOREIGN KEY (fk_user_id) REFERENCES user (user_id),
+    CONSTRAINT comment_post_id FOREIGN KEY (fk_post_id) REFERENCES post (post_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;`
+  );
+  if (result && result.warningStatus > 0) {
+    const [warningResult, _] = await connection.query("SHOW WARNINGS");
+    displayWarningMessage(warningResult[0]);
+  } else {
+    console.log("Created Comments Table!");
+  }
+}
+
+async function makeLikesTable(connection) {
+  const [result, _] = await connection.query(
+    // Likes Table SQL Goes here
+    `CREATE TABLE IF NOT EXISTS likes (
+    likes_id int unsigned NOT NULL AUTO_INCREMENT,
+    fk_user_id int unsigned NOT NULL,
+    fk_post_id int unsigned NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (likes_id),
+    UNIQUE KEY likes_id_UNIQUE (likes_id),
+    KEY like_author_idx (fk_user_id),
+    KEY liked_post_idx (fk_post_id),
+    CONSTRAINT like_author FOREIGN KEY (fk_user_id) REFERENCES user (user_id),
+    CONSTRAINT liked_post FOREIGN KEY (fk_post_id) REFERENCES post (post_id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;`
+  );
+  if (result && result.warningStatus > 0) {
+    const [warningResult, _] = await connection.query("SHOW WARNINGS");
+    displayWarningMessage(warningResult[0]);
+  } else {
+    console.log("Created Likes Table!");
+  }
+}
+
+(async function main() {
+  let connection = null;
+  try {
+    connection = await getConnection();
+    await makeDatabase(connection); // make DB
+    //TODO make sure to change yourdbnamehere
+    await connection.query(`USE ${process.env.DB_NAME}`); // set new DB to the current DB
+    await makeUsersTable(connection); // try to make user table
+    await makePostsTable(connection); // try to make posts table
+    await makeCommentsTable(connection); // try to make comments table
+    await makeLikesTable(connection); // try to make likes table
+    //connection.close();   COMMENTED IT FOR DEBUGING
+    await connection.end();   //debugging
+    return;
+  } catch (error) {
+    console.error(error);
+    if (connection != null) {
+      //connection.close(); //commented it for debugging
+      await connection.end(); //debugging
+    }
+  }
+})();

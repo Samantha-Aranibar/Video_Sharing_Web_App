@@ -1,0 +1,55 @@
+<main class="cMain">
+  <div class="container">
+    {{#if isSearchResults}}
+      {{!-- Search Results Header --}}
+      <div class="search-header">
+        <h2>Search Results for "{{searchQuery}}"</h2>
+        <p>{{posts.length}} videos found</p>
+        <a href="/viewpost" class="back-link">← Back to all videos</a>
+      </div>
+    {{else}}
+      {{!-- Regular View Header --}}
+      <h2>All Videos</h2>
+    {{/if}}
+
+    {{#if posts.length}}
+      <div class="videos-grid">
+        {{#each posts}}
+          <div class="video-card">
+            <a href="/post/{{this.post_id}}">
+              <div class="video-thumbnail">
+                {{#if this.thumbnail}}
+                  <img src="/{{this.thumbnail}}" alt="{{this.title}}">
+                {{else}}
+                  <div class="thumbnail-placeholder">
+                    <i class="fas fa-video"></i>
+                  </div>
+                {{/if}}
+              </div>
+              <div class="video-description">
+                <h3>{{this.title}}</h3>
+                <p>{{this.description}}</p>
+              </div>   
+              <div class="video-meta">
+                <p>By {{this.username}}</p>
+                <p>{{this.created_at}}</p>
+              </div>
+            </a>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="no-videos">
+        {{#if isSearchResults}}
+          <p>No videos found for "{{searchQuery}}"</p>
+          <a href="/viewpost" class="button">View All Videos</a>
+        {{else}}
+          <p>No videos available yet</p>
+          {{#if isLoggedIn}}
+            <a href="/postvideo" class="button">Upload First Video</a>
+          {{/if}}
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</main>

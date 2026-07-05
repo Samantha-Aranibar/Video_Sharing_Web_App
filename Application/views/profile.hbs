@@ -1,0 +1,73 @@
+{{! views/profile.hbs }}
+<main class="cMain">
+    <div class="container">
+        <div class="cProfile">
+
+            <div class="profile-header">
+                <h2>{{user.username}}'s Profile</h2>
+            </div>
+
+            <div class="cProfileInfo">
+                <div class="info-card">
+                    <div class="info-item">
+                        <span class="info-label">Username:</span>
+                        <span class="info-value">{{user.username}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">{{user.email}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cProfileActions">
+                <a href="/postvideo" class="button upload-btn">
+                    <i class="fas fa-upload"></i> New Post
+                </a>
+                <a href="/users/edit/{{user.user_id}}" class="button edit-btn"> {{!users}}
+                    <i class="fas fa-user-edit"></i> Edit Profile
+                </a>
+                <form action="/users/delete/{{user.user_id}}" method="POST"         {{!users}}
+                      onsubmit="return confirm('This will permanently delete your account and all posts. Continue?');">
+                    <button type="submit" class="delete-btn">
+                        <i class="fas fa-user-slash"></i> Delete Account
+                    </button>
+                </form>
+            </div>
+
+            {{#if posts.length}}
+                <div class="user-posts">
+                    <h3>Your Video Posts</h3>
+                    <div class="posts-grid">
+                        {{#each posts}}
+                            <div class="post-card">
+                                <a href="/posts/{{this.post_id}}">
+                                    <div class="thumbnail-container">
+                                        <img src="{{this.thumbnail}}" alt="{{this.title}}">
+                                    </div>
+                                    <h4>{{this.title}}</h4>
+                                </a>
+                                <div class="post-actions">
+                                    <form action="/posts/delete/{{this.post_id}}" method="POST" 
+                                          onsubmit="return confirm('Delete this post?');">
+                                        <button type="submit" class="delete-btn">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            {{else}}
+                <div class="no-posts">
+                    <p>You haven't created any posts yet.</p>
+                    <a href="/postvideo" class="button upload-btn">
+                        <i class="fas fa-upload"></i> Create Your First Post
+                    </a>
+                </div>
+            {{/if}}
+       
+        </div>
+    </div>
+</main>

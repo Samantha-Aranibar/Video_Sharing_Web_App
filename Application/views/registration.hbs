@@ -1,0 +1,41 @@
+<main class="cMain">
+    <div class="container">
+        <div class="cRegistrationForm">
+            <h2>Create an Account</h2>
+            <form id="registration-form" action="/users/registration" method="POST" enctype="application/x-www-form-urlencoded">
+
+                <div class="cForm">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" placeholder="Username" name="username" required>
+                    <div class="error-message" id="username-error"></div>
+                </div>
+
+                <div class="cForm">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" placeholder="Email" name="email" required>
+                    <div class="error-message" id="email-error"></div>
+                </div>
+
+                <div class="cForm">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Password" name="password" required>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+
+                <div class="cForm">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="Cpassword" placeholder="Confirm Password" name="Cpassword" required>
+                    <div class="error-message" id="confirm-password-error"></div>
+                </div>
+
+                <div class="cCheckbox">
+                    <input type="checkbox" id="terms" name="toc" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a></label>
+                </div>
+
+                <button class="RegisterButton" type="submit">Register</button>
+
+            </form>
+        </div>
+    </div>
+</main>

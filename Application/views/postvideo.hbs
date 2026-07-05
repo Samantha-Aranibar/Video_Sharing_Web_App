@@ -1,0 +1,35 @@
+<main class="cMain">
+    <div class="container">
+        <div class="cVideoForm">
+            <h2>Upload Video</h2>
+            <form id="upload-form" action="/post/create" method="post" enctype="multipart/form-data">
+
+                <div class="cForm">
+                    <label for="title">Video Title:</label>
+                    <input id="title" type="text" placeholder="Post Title" required name="title"/>
+                </div>
+
+                <div class="cForm">
+                    <label for="description">Description:</label>
+                    <input id="description" type="text" placeholder="Post Description here..." required name="description" />
+                </div>
+
+                <div class="cForm">
+                    <label for="video">Upload Video:</label>
+                    <div class="cFileUpload">
+                        <input id="video" type="file" required name="videoUpload"/>
+                    </div>
+                </div>
+
+                <div class="cCheckbox">
+                    <input id="aup" type="checkbox" required name="aop"/>
+                    <label for="aup">I accept the Acceptable Policies</label>
+                </div>
+
+                <button type="submit" class="button-post">Post Video</button>
+
+            </form>
+        </div>
+    </div>
+
+</main>

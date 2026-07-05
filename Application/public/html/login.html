@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <script src="../js/login-validation.js"></script>
+    <title>Login</title>
+</head>
+
+<body class="cBody">
+
+    <header class="cHeader">
+        <div class="container">
+            <h1>Login - Video Platform</h1>
+        </div>
+    </header>
+    
+    <nav class="cNav">
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="registration.html">Register</a></li>
+                <li><a href="postvideo.html">Post A Video</a></li>
+                <li><a href="viewpost.html">View A Post</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="cMain">
+        <div class="container">
+            <div class="cLogin">
+                <h2>User Login</h2>
+                <form id="login-form" action="/login" method="POST">
+                    
+                    <div class="cForm">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                        <div class="error-message" id="username-error"></div>
+                    </div>
+                    
+                    <div class="cForm">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                        <div class="error-message" id="password-error"></div>                
+                    </div>
+
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="cFooter">
+        <div class="container">
+            <p>&copy; 2025 Video Sharing Platform.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

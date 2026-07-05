@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/postvideo.css">
+    <title>Post Video</title>
+    <script src="../js/postvideo.js"></script>
+
+</head>
+
+<body class="cBody">
+    <header class="cHeader">
+        <div class="container">
+                    <h1>Video Plataform</h1>
+        </div>
+    </header>
+
+    <nav class="cNav">
+        <div class="container">
+            <ul class="cNavList">
+                <li class="cNavElement"><a href="index.html">Home</a></li>
+                <li class="cNavElement"><a href="login.html">Login</a></li>
+                <li class="cNavElement"><a href="registration.html">Register</a></li>
+                <li class="cNavElement"><a href="postvideo.html">Post A Video</a></li>
+                <li class="cNavElement"><a href="viewpost.html">View A Post</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="cMain">
+        <div class="container">
+            <div class="cVideoForm">
+                <h2>Upload Video</h2>
+                <form id="upload-form" action="/video/upload" method="post" enctype="multipart/form-data">
+                    
+                    <div class="cForm">
+                        <label for="title">Video Title:</label>
+                        <input id="title" type="text" name="title" required>
+                    </div>
+                    
+                    <div class="cForm">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    
+                    <div class="cForm">
+                        <label for="video">Video File:</label>
+                        <div class="cFileUpload">
+                            <input id="video" type="file" name="video" accept="video/*" required>
+                        </div>
+                    </div>
+                    
+                    <div class="cCheckbox">
+                        <input id="aup" type="checkbox" name="aup" required>
+                        <label for="aup">I accept the Acceptable Policies</label>
+                    </div>
+                    
+                    <button type="submit">Upload Video</button>
+                
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="cFooter">
+        <div class="container">
+            <p>&copy; 2025 Video Sharing Platform.</p>
+        </div>
+    </footer>
+</body>
+</html>

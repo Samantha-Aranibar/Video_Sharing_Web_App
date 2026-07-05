@@ -1,0 +1,39 @@
+<div class="cNavSearchContainer">
+    <form action="/post/search" method="GET" class="cNavSearch" id="searchForm">
+        <input type="text" class="cNavSearchInput" placeholder="Search..." name="q" id="search" value="{{searchQuery}}" required>   
+        <button type="submit" class="cNavSearchButton">
+            <i class="fas fa-search"></i> 
+        </button>
+        {{!-- <div class="cNavSearchInput">
+            <a href="#" class="cNavSearchLink" id="searchSubmit">Search</a>
+            <script>
+                document.getElementById('searchSubmit').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('searchForm').submit();
+                });
+            </script>
+        </div> --}}
+    </form>
+</div>
+
+<nav class="cNav">
+    <div class="container">
+        <ul class="cNavList">
+            <li class="cNavElement"><a href="/">Home</a></li>
+            {{! <li class="cNavElement"><a href="/login">Login</a></li> }}
+            {{! <li class="cNavElement"><a href="/registration">Register</a></li> }}
+            <li class="cNavElement"><a href="/postvideo">Post A Video</a></li>
+            <li class="cNavElement"><a href="/viewpost">View Videos</a></li>
+            <li class="cNavElement">
+                {{#if this.isLoggedIn}}
+                    {{> userdropdown this}}
+                {{else}}
+                    <div class="auth-buttons">
+                        <a href="/login" class="auth-button login">Log In</a>
+                        <a href="/registration" class="auth-button register">Register</a>
+                    </div>
+                {{/if}}
+            </li>  {{! This will be replaced by user dropdown if logged in }}
+        </ul>
+    </div>
+</nav>

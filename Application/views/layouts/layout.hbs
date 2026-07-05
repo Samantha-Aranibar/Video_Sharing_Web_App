@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{{! log this}}
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="icon" href="/public/favicon.ico" sizes="70x70" type="image/ico">
+    <link rel='stylesheet' href='/public/css/index.css' />
+    <link rel='stylesheet' href='/public/css/login.css' />
+    <link rel='stylesheet' href='/public/css/postvideo.css' />
+    <link rel='stylesheet' href='/public/css/registration.css' />
+    <link rel='stylesheet' href='/public/css/viewpost.css' />  
+    <link rel='stylesheet' href='/public/css/profile.css' />
+
+    <script defer src="/public/js/index.js"></script>
+    <script defer src="/public/js/login-validation.js"></script>
+    <script defer src="/public/js/postvideo.js"></script>
+    <script defer src="/public/js/registration-validation.js"></script>
+    <script defer src="/public/js/viewpost.js"></script>
+    <script defer src="/public/js/likes.js"></script>
+    <script defer src="/public/js/comments.js"></script>
+
+    {{#each css}}
+      <link rel="stylesheet" href="/public/css/{{this}}" />
+    {{/each}}
+
+    {{#each js}}
+      <script src="/public/js/{{this}}"></script>
+    {{/each}}
+  </head>
+
+  <body>
+    {{!-- GETTING MESSAGES FROM FLASH nonEmptyObject (app.js)--}}
+    {{#if (isNotEmpty messages)}}
+      {{>flashmessage this}}
+      {{!-- {{{showFlashMessage messages}}} --}}
+    {{/if}}
+    <div class="container">
+      {{>header}}
+      {{>nav}}
+      {{{body}}}
+      {{>footer}}
+    </div>
+  </body>
+</html>

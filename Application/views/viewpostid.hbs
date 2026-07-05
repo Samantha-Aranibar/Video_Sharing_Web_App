@@ -1,0 +1,55 @@
+<main class="cMain">
+  <div class="container">
+    {{#if post}}
+      <div class="videos-grid-single">
+          <div class="video-card-container">
+              <div class="video-container">
+                {{#if post.video}}
+                  <video controls>
+                    <source src="/{{post.video}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video> 
+                {{else}}
+                  <div class="thumbnail-placeholder">
+                    <i class="fas fa-video"></i>
+                  </div>
+                {{/if}}
+              </div>
+              <div class="video-description">
+                <h3>{{post.title}}</h3>
+                <p class="video-description">{{this.description}}</p>
+                <div class="video-meta">
+                  <span>By {{post.username}}</span>
+                  <span>{{post.created_at}}</span>
+                </div>
+
+                <!-- LIKE BUTTON SECTION-->
+              <div class="like-section">
+                <button class="like-btn {{#if post.userLiked}}liked{{/if}}" data-post-id="{{post.post_id}}">
+                    <i class="{{#if post.userLiked}}fas{{else}}far{{/if}} fa-heart"></i>
+                    <span class="like-count">{{post.like_count}}</span>
+                  </button>
+                </div>
+
+              </div>
+          </div>
+      </div>
+    {{else}}
+      <div class="no-videos">
+        {{#if isSearchResults}}
+          <p>No videos found for "{{searchQuery}}"</p>
+          <a href="/viewpost" class="button">View All Videos</a>
+        {{else}}
+          <p>No videos available yet</p>
+          {{#if isLoggedIn}}
+            <a href="/postvideo" class="button">Upload First Video</a>
+          {{/if}}
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</main>
+
+
+
+<!-- SCRIPT FOR LIKE BUTON-->

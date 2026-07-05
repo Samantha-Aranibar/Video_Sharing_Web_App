@@ -1,0 +1,28 @@
+<main class="cMain">
+        <div class="container">
+            <div class="cLogin">  
+                <h2>User Login Form</h2>
+                <form id="login-form" action="/users/login" method="POST" enctype="application/x-www-form-urlencoded"> 
+                    <div class="cForm">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                        <div class="error-message" id="username-error"></div>
+                    </div>
+                    
+                    <div class="cForm">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                        <div class="error-message" id="password-error"></div>                
+                    </div>
+
+                    <button id="login" type="submit" class="button-Login">Login</button>
+                    <button id="login" type="reset" class="button-Reset">Reset</button>
+
+                    <div class="cForm">
+                        <p>Don't have an account? <a href="/registration">Register here!</a></p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+</main>

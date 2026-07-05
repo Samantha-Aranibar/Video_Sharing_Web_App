@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/registration.css">
+    <script src="../js/registration-validation.js"></script>    
+    <title>Register</title>
+</head>
+
+<body>
+    <header class="cHeader">
+        <div class="container">
+            <h1>Register - Video Platform</h1>
+        </div>
+    </header>
+
+    <nav class="cNav">
+        <div class="container">
+            <ul class="cNavList">
+                <li class="cNavElement"><a href="index.html">Home</a></li>
+                <li class="cNavElement"><a href="login.html">Login</a></li>
+                <li class="cNavElement"><a href="registration.html">Register</a></li>
+                <li class="cNavElement"><a href="postvideo.html">Post A Video</a></li>
+                <li class="cNavElement"><a href="viewpost.html">View A Post</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="cMain">
+        <div class="container">
+            <div class="cRegistrationForm">
+                <h2>Create an Account</h2>
+                 <form id="registration-form" action="/register" method="POST">
+                    
+                    <div class="cForm">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                        <div class="error-message" id="username-error"></div>
+                    </div>
+                    
+                    <div class="cForm">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error-message" id="email-error"></div>
+                    </div>
+                    
+                    <div class="cForm">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                        <div class="error-message" id="password-error"></div>
+                    </div>
+                    
+                    <div class="cForm">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                        <div class="error-message" id="confirm-password-error"></div>
+                    </div>
+                    
+                    <div class="cCheckbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms of Service</a></label>
+                    </div>
+
+                    <button type="submit">Register</button>
+                
+                </form>
+            </div>
+        </div>   
+    </main>
+
+    <footer class="cFooter">
+        <div class="container">
+            <p>&copy; 2025 Video Sharing Platform.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
